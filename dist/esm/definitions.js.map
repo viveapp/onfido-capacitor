@@ -1,0 +1,1 @@
+{"version":3,"file":"definitions.js","sourceRoot":"","sources":["../../src/definitions.ts"],"names":[],"mappings":"","sourcesContent":["export interface OnfidoCapacitorPlugin {\n  init(options: InitOptions): Promise<void>;\n}\n\nexport interface InitOptions {\n  SDKToken: string;\n}\n"]}
