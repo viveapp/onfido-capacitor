@@ -1,0 +1,1 @@
+{"version":3,"file":"definitions.js","sourceRoot":"","sources":["../../src/definitions.ts"],"names":[],"mappings":"","sourcesContent":["import { OnfidoConfig, OnfidoError, OnfidoResult } from './models';\n\nexport interface OnfidoCapacitorPlugin {\n  start(options: OnfidoConfig): Promise<OnfidoResult | OnfidoError>;\n}\n"]}

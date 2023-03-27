@@ -1,0 +1,166 @@
+{
+  "api": {
+    "name": "OnfidoCapacitorPlugin",
+    "slug": "onfidocapacitorplugin",
+    "docs": "",
+    "tags": [],
+    "methods": [
+      {
+        "name": "start",
+        "signature": "(options: OnfidoConfig) => Promise<OnfidoResult | OnfidoError>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "OnfidoConfig"
+          }
+        ],
+        "returns": "Promise<OnfidoResult | OnfidoError>",
+        "tags": [],
+        "docs": "",
+        "complexTypes": [
+          "OnfidoResult",
+          "OnfidoError",
+          "OnfidoConfig"
+        ],
+        "slug": "start"
+      }
+    ],
+    "properties": []
+  },
+  "interfaces": [
+    {
+      "name": "OnfidoError",
+      "slug": "onfidoerror",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "code",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [],
+          "type": "string | undefined"
+        }
+      ]
+    }
+  ],
+  "enums": [
+    {
+      "name": "OnfidoCaptureType",
+      "slug": "onfidocapturetype",
+      "members": [
+        {
+          "name": "PHOTO",
+          "value": "'PHOTO'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "VIDEO",
+          "value": "'VIDEO'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "MOTION",
+          "value": "'MOTION'",
+          "tags": [],
+          "docs": ""
+        }
+      ]
+    },
+    {
+      "name": "OnfidoDocumentType",
+      "slug": "onfidodocumenttype",
+      "members": [
+        {
+          "name": "PASSPORT",
+          "value": "'PASSPORT'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "DRIVING_LICENCE",
+          "value": "'DRIVING_LICENCE'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "NATIONAL_IDENTITY_CARD",
+          "value": "'NATIONAL_IDENTITY_CARD'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "RESIDENCE_PERMIT",
+          "value": "'RESIDENCE_PERMIT'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "VISA",
+          "value": "'VISA'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "WORK_PERMIT",
+          "value": "'WORK_PERMIT'",
+          "tags": [],
+          "docs": ""
+        },
+        {
+          "name": "GENERIC",
+          "value": "'GENERIC'",
+          "tags": [],
+          "docs": ""
+        }
+      ]
+    }
+  ],
+  "typeAliases": [
+    {
+      "name": "OnfidoResult",
+      "slug": "onfidoresult",
+      "docs": "",
+      "types": [
+        {
+          "text": "{\n  document?: {\n    front: {\n      id: string;\n    };\n    back?: {\n      id: string;\n    };\n    nfcMediaId?: {\n      id: string;\n    };\n  };\n  face?: {\n    id: string;\n    variant: OnfidoCaptureType;\n  };\n}",
+          "complexTypes": [
+            "OnfidoCaptureType"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "OnfidoConfig",
+      "slug": "onfidoconfig",
+      "docs": "",
+      "types": [
+        {
+          "text": "{\n  sdkToken: string;\n  workflowRunId?: string;\n  flowSteps: OnfidoFlowSteps;\n  hideLogo?: boolean;\n  logoCoBrand?: boolean;\n  enableNFC?: boolean;\n  localisation?: {\n    ios_strings_file_name?: string;\n  };\n}",
+          "complexTypes": [
+            "OnfidoFlowSteps"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "OnfidoFlowSteps",
+      "slug": "onfidoflowsteps",
+      "docs": "",
+      "types": [
+        {
+          "text": "{\n  welcome?: boolean;\n  captureDocument?: {\n    countryCode?: string;\n    alpha2CountryCode?: string;\n    docType?: OnfidoDocumentType;\n  };\n  captureFace?: {\n    type: OnfidoCaptureType;\n  };\n}",
+          "complexTypes": [
+            "OnfidoDocumentType",
+            "OnfidoCaptureType"
+          ]
+        }
+      ]
+    }
+  ],
+  "pluginConfigs": []
+}
