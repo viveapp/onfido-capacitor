@@ -1,6 +1,5 @@
 import { registerPlugin } from '@capacitor/core';
-const OnfidoCapacitor = registerPlugin('OnfidoPlugin', {
-// web: () => import('./web').then(m => new m.OnfidoPluginWeb()),
-});
+const OnfidoCapacitor = registerPlugin('OnfidoPlugin');
 export * from './definitions';
+export { OnfidoCapacitor };
 //# sourceMappingURL=index.js.map

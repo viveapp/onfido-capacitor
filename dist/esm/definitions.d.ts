@@ -1,6 +1,4 @@
+import { OnfidoConfig, OnfidoError, OnfidoResult } from './models';
 export interface OnfidoCapacitorPlugin {
-    init(options: InitOptions): Promise<void>;
-}
-export interface InitOptions {
-    SDKToken: string;
+    start(options: OnfidoConfig): Promise<OnfidoResult | OnfidoError>;
 }
