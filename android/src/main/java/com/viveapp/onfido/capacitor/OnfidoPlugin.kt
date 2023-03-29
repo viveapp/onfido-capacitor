@@ -26,7 +26,12 @@ class OnfidoPlugin : Plugin() {
     private var currentCall: PluginCall? = null
     private var workflow: OnfidoWorkflow? = null
 
-    private val client: Onfido = OnfidoFactory.create(context).client
+    private lateinit var client: Onfido
+
+    override fun load() {
+        super.load()
+        client = OnfidoFactory.create(activity.applicationContext).client
+    }
 
     private fun setCall(call: PluginCall) {
         this.currentCall?.reject(
@@ -106,10 +111,10 @@ class OnfidoPlugin : Plugin() {
         val enterpriseFeaturesBuilder = EnterpriseFeatures.Builder()
         var hasSetEnterpriseFeatures = false
 
-        if (config.getBoolean("hideLogo")) {
+        if (config.has("hideLogo") && config.getBoolean("hideLogo")) {
             enterpriseFeaturesBuilder.withHideOnfidoLogo((true))
             hasSetEnterpriseFeatures = true
-        } else if (config.getBoolean("logoCobrand")) {
+        } else if (config.has("logoCobrand") && config.getBoolean("logoCobrand")) {
             val cobrandLogoLight = activity.applicationContext.resources.getIdentifier(
                 "cobrand_logo_light", "drawable", activity.applicationContext.packageName
             )
