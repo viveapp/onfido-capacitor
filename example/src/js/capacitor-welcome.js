@@ -1,5 +1,6 @@
 import { SplashScreen } from '@capacitor/splash-screen';
-import { Camera } from '@capacitor/camera';
+import 'onfido-capacitor';
+import { OnfidoCapacitor } from 'onfido-capacitor';
 
 window.customElements.define(
   'capacitor-welcome',
@@ -60,26 +61,12 @@ window.customElements.define(
         <h1>Capacitor</h1>
       </capacitor-welcome-titlebar>
       <main>
-        <p>
-          Capacitor makes it easy to build powerful apps for the app stores, mobile web (Progressive Web Apps), and desktop, all
-          with a single code base.
-        </p>
-        <h2>Getting Started</h2>
-        <p>
-          You'll probably need a UI framework to build a full-featured app. Might we recommend
-          <a target="_blank" href="http://ionicframework.com/">Ionic</a>?
-        </p>
-        <p>
-          Visit <a href="https://capacitorjs.com">capacitorjs.com</a> for information
-          on using native features, building plugins, and more.
-        </p>
-        <a href="https://capacitorjs.com" target="_blank" class="button">Read more</a>
         <h2>Tiny Demo</h2>
         <p>
-          This demo shows how to call Capacitor plugins. Say cheese!
+          This demo shows how to call the Onfido Capacitor plugin.
         </p>
         <p>
-          <button class="button" id="take-photo">Take Photo</button>
+          <button class="button" id="take-photo">Start verification</button>
         </p>
         <p>
           <img id="image" style="max-width: 100%">
@@ -94,16 +81,21 @@ window.customElements.define(
 
       self.shadowRoot.querySelector('#take-photo').addEventListener('click', async function (e) {
         try {
-          const photo = await Camera.getPhoto({
-            resultType: 'uri',
+          OnfidoCapacitor.start({
+            sdkToken: '<SDK_TOKEN>',
+            workflowRunId: '<WORKFLOW_RUN_ID>',
+            flowSteps: {
+              welcome: true,
+              captureDocument: {
+                countryCode: 'NLD',
+                alpha2CountryCode: 'NL',
+                docType: 'DRIVING_LICENCE',
+              },
+              captureFace: {
+                type: 'VIDEO',
+              },
+            },
           });
-
-          const image = self.shadowRoot.querySelector('#image');
-          if (!image) {
-            return;
-          }
-
-          image.src = photo.webPath;
         } catch (e) {
           console.warn('User cancelled', e);
         }

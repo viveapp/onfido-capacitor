@@ -1,3 +1,11 @@
+//
+//  Response.swift
+//  Plugin
+//
+//  Created by Polo Swelsen on 28/03/2023.
+//  Copyright © 2023 ilionx B.V. All rights reserved.
+//
+
 #import <UIKit/UIKit.h>
 
 //! Project version number for Plugin.
