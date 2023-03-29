@@ -2,6 +2,10 @@ import { SplashScreen } from '@capacitor/splash-screen';
 import 'onfido-capacitor';
 import { OnfidoCapacitor } from 'onfido-capacitor';
 
+const SDK_TOKEN =
+  'eyJhbGciOiJFUzUxMiJ9.eyJleHAiOjE2ODAwOTA4MjYsInBheWxvYWQiOnsiYXBwIjoiOTljMGQ3MzEtNzRkOC00YzZjLWIxMjQtYzU4MjI1YWRjZjNiIiwiYXBwbGljYXRpb25faWQiOiIqIiwiY2xpZW50X3V1aWQiOiJmYTc2NTk0My0zNDZjLTQ0YzctYWY0OC00MmJkMTVlY2I1NzMiLCJpc19zYW5kYm94Ijp0cnVlLCJpc19zZWxmX3NlcnZpY2VfdHJpYWwiOmZhbHNlLCJpc190cmlhbCI6ZmFsc2UsInNhcmRpbmVfc2Vzc2lvbiI6IjMwMTQxNmQ3LTllZWItNDM1OS1iZmFhLWViYmNmZTgwYzQ1NyJ9LCJ1dWlkIjoicGxhdGZvcm1fc3RhdGljX2FwaV90b2tlbl91dWlkIiwidXJscyI6eyJkZXRlY3RfZG9jdW1lbnRfdXJsIjoiaHR0cHM6Ly9zZGsub25maWRvLmNvbSIsInN5bmNfdXJsIjoiaHR0cHM6Ly9zeW5jLm9uZmlkby5jb20iLCJob3N0ZWRfc2RrX3VybCI6Imh0dHBzOi8vaWQub25maWRvLmNvbSIsImF1dGhfdXJsIjoiaHR0cHM6Ly9hcGkub25maWRvLmNvbSIsIm9uZmlkb19hcGlfdXJsIjoiaHR0cHM6Ly9hcGkub25maWRvLmNvbSIsInRlbGVwaG9ueV91cmwiOiJodHRwczovL2FwaS5vbmZpZG8uY29tIn19.MIGGAkFultemw60h09sFfb9PVdd7tpGstc3nvC2PCrdE4-hq2zNiCaX1hkvY3tcUtooLeFBcNRnSxoMvNk7GPa_uApbwmQJBbq7np12VBNP30oz7K2iXjqC1F4WpGRTTFe9-5rrmHwsVzAMm-1GFEM2fP-j0UQt460184UeSPRZwotwLStaIIjc';
+const WORKFLOW_RUN_ID = '1f6d334d-2fee-4b6c-9e60-68b4143accdc';
+
 window.customElements.define(
   'capacitor-welcome',
   class extends HTMLElement {
@@ -80,22 +84,23 @@ window.customElements.define(
       const self = this;
 
       self.shadowRoot.querySelector('#take-photo').addEventListener('click', async function (e) {
-        try {
-          OnfidoCapacitor.start({
-            sdkToken: '<SDK_TOKEN>',
-            workflowRunId: '<WORKFLOW_RUN_ID>',
-            flowSteps: {
-              welcome: true,
-              captureDocument: {
-                countryCode: 'NLD',
-                alpha2CountryCode: 'NL',
-                docType: 'DRIVING_LICENCE',
-              },
-              captureFace: {
-                type: 'VIDEO',
-              },
+        let onfidoConfig = {
+          sdkToken: SDK_TOKEN,
+          workflowRunId: WORKFLOW_RUN_ID,
+          flowSteps: {
+            welcome: true,
+            captureDocument: {
+              countryCode: 'NLD',
+              alpha2CountryCode: 'NL',
+              docType: 'DRIVING_LICENCE',
             },
-          });
+            captureFace: {
+              type: 'VIDEO',
+            },
+          },
+        };
+        try {
+          OnfidoCapacitor.start(onfidoConfig);
         } catch (e) {
           console.warn('User cancelled', e);
         }
