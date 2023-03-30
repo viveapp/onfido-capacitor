@@ -2,6 +2,10 @@ import { SplashScreen } from '@capacitor/splash-screen';
 import 'onfido-capacitor';
 import { OnfidoCapacitor } from 'onfido-capacitor';
 
+// See readme for generation of both variables below
+const SDK_TOKEN = 'insert-generated-sdk-token-here';
+const WORKFLOW_RUN_ID = 'insert-workflow-run-id-here';
+
 window.customElements.define(
   'capacitor-welcome',
   class extends HTMLElement {
@@ -80,22 +84,23 @@ window.customElements.define(
       const self = this;
 
       self.shadowRoot.querySelector('#take-photo').addEventListener('click', async function (e) {
-        try {
-          OnfidoCapacitor.start({
-            sdkToken: '<SDK_TOKEN>',
-            workflowRunId: '<WORKFLOW_RUN_ID>',
-            flowSteps: {
-              welcome: true,
-              captureDocument: {
-                countryCode: 'NLD',
-                alpha2CountryCode: 'NL',
-                docType: 'DRIVING_LICENCE',
-              },
-              captureFace: {
-                type: 'VIDEO',
-              },
+        let onfidoConfig = {
+          sdkToken: SDK_TOKEN,
+          workflowRunId: WORKFLOW_RUN_ID,
+          flowSteps: {
+            welcome: true,
+            captureDocument: {
+              countryCode: 'NLD',
+              alpha2CountryCode: 'NL',
+              docType: 'DRIVING_LICENCE',
             },
-          });
+            captureFace: {
+              type: 'VIDEO',
+            },
+          },
+        };
+        try {
+          OnfidoCapacitor.start(onfidoConfig);
         } catch (e) {
           console.warn('User cancelled', e);
         }

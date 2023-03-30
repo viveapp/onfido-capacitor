@@ -1,13 +1,6 @@
-# onfido-capacitor
+# Onfido Capacitor Plugin
 
 A capacitor based wrapper for Onfido mobile SDKs
-
-## Install
-
-```bash
-npm install onfido-capacitor
-npx cap sync
-```
 
 ## API
 

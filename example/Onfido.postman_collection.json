@@ -1,0 +1,436 @@
+{
+	"info": {
+		"_postman_id": "bc728f92-9500-4e1b-a044-c26f5f45d2c7",
+		"name": "Onfido",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Applicant",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Retrieve Applicant ID\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.collectionVariables.set(\"APPLICANT_ID\", jsonData.id);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token token={{API_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"first_name\": \"Polo\",\n  \"last_name\": \"Swelsen 7\",\n  \"dob\": \"1994-01-25\",\n  \"address\": {\n    \"building_number\": \"100\",\n    \"street\": \"Amerikalaan\",\n    \"town\": \"Maastricht Airport\",\n    \"postcode\": \"6199 AE\",\n    \"country\": \"NLD\"\n  }\n}"
+				},
+				"url": {
+					"raw": "https://api.eu.onfido.com/v3.4/applicants/",
+					"protocol": "https",
+					"host": [
+						"api",
+						"eu",
+						"onfido",
+						"com"
+					],
+					"path": [
+						"v3.4",
+						"applicants",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create SDK Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Retrieve SDK Token\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.collectionVariables.set(\"SDK_TOKEN\", jsonData.token);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token token={{API_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n     \"applicant_id\": \"{{APPLICANT_ID}}\",    \n     \"application_id\": \"{{APPLICATION_ID}}\"\n}"
+				},
+				"url": {
+					"raw": "https://api.eu.onfido.com/v3.6/sdk_token",
+					"protocol": "https",
+					"host": [
+						"api",
+						"eu",
+						"onfido",
+						"com"
+					],
+					"path": [
+						"v3.6",
+						"sdk_token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Workflow Run",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Retrieve Workflow Run ID\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.collectionVariables.set(\"WORKFLOW_RUN_ID\", jsonData.id);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token token={{API_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"workflow_id\": \"{{WORKFLOW_ID_FULL_IDENTIFICATION}}\",\n  \"applicant_id\": \"{{APPLICANT_ID}}\"\n}"
+				},
+				"url": {
+					"raw": "https://api.eu.onfido.com/v3.6/workflow_runs",
+					"protocol": "https",
+					"host": [
+						"api",
+						"eu",
+						"onfido",
+						"com"
+					],
+					"path": [
+						"v3.6",
+						"workflow_runs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Workflow Run Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Retrieve documents uploaded\", function () {",
+							"    var jsonData = pm.response.json();",
+							"",
+							"    jsonData.output.document_media_ids.forEach(function (obj, index) {",
+							"        pm.collectionVariables.set(\"DOCUMENT_\" + (index + 1), obj.id);",
+							"    });",
+							"",
+							"    jsonData.output.selfie_media_ids.forEach(function (obj, index) {",
+							"        if (obj.type == \"live_photo\") {",
+							"            pm.collectionVariables.set(\"LIVE_PHOTO_\" + (index + 1), obj.id);",
+							"        }",
+							"    });",
+							"",
+							"    jsonData.output.selfie_media_ids.forEach(function (obj, index) {",
+							"        if (obj.type == \"live_video\") {",
+							"            pm.collectionVariables.set(\"LIVE_VIDEO\" + (index + 1), obj.id);",
+							"        }",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"for (let a = 1; a < 10; a++) {",
+							"    pm.collectionVariables.unset(\"DOCUMENT_\" + a);",
+							"    pm.collectionVariables.unset(\"LIVE_PHOTO_\" + a);",
+							"    pm.collectionVariables.unset(\"LIVE_VIDEO_\" + a);",
+							"}",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token token={{API_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.eu.onfido.com/v3.6/workflow_runs/{{WORKFLOW_RUN_ID}}",
+					"protocol": "https",
+					"host": [
+						"api",
+						"eu",
+						"onfido",
+						"com"
+					],
+					"path": [
+						"v3.6",
+						"workflow_runs",
+						"{{WORKFLOW_RUN_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Download Document",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token token={{API_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.eu.onfido.com/v3.6/documents/{{DOCUMENT_1}}/download",
+					"protocol": "https",
+					"host": [
+						"api",
+						"eu",
+						"onfido",
+						"com"
+					],
+					"path": [
+						"v3.6",
+						"documents",
+						"{{DOCUMENT_1}}",
+						"download"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Download Live Photo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token token={{API_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.eu.onfido.com/v3.6/live_photos/{{LIVE_PHOTO_1}}/download",
+					"protocol": "https",
+					"host": [
+						"api",
+						"eu",
+						"onfido",
+						"com"
+					],
+					"path": [
+						"v3.6",
+						"live_photos",
+						"{{LIVE_PHOTO_1}}",
+						"download"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Download Live Video",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Token token={{API_TOKEN}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://api.eu.onfido.com/v3.6/live_photos/{{LIVE_VIDEO_1}}/download",
+					"protocol": "https",
+					"host": [
+						"api",
+						"eu",
+						"onfido",
+						"com"
+					],
+					"path": [
+						"v3.6",
+						"live_photos",
+						"{{LIVE_VIDEO_1}}",
+						"download"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "API_TOKEN",
+			"value": "set-api-token"
+		},
+		{
+			"key": "WORKFLOW_ID_FULL_IDENTIFICATION",
+			"value": "set-workflow-id",
+			"type": "default"
+		},
+		{
+			"key": "WORKFLOW_ID_DOCUMENT_IDENTIFICATION",
+			"value": "set-workflow-id",
+			"type": "default"
+		},
+		{
+			"key": "APPLICANT_ID",
+			"value": "automatically-set"
+		},
+		{
+			"key": "SDK_TOKEN",
+			"value": "automatically-set"
+		},
+		{
+			"key": "APPLICATION_ID",
+			"value": "*",
+			"type": "default"
+		},
+		{
+			"key": "WORKFLOW_RUN_ID",
+			"value": "automatically-set"
+		}
+	]
+}
