@@ -24,7 +24,7 @@ We can summarize the steps needed as follows:
 
 ## Postman Scripts
 
-Included in this example project is a Postman collection which is configured to set and get the necessary variables dynamically. You only need to set the `API_TOKEN` and `WORKFLOW_ID_FULL_IDENTIFICATION` or `WORKFLOW_ID_DOCUMENT_IDENTIFICATION` collection variables. Then simply execute the three post requests in this order;
+Included in this example project is a [Postman Collection](./Onfido.postman_collection.json) which is configured to set and get the necessary variables dynamically. You only need to set the `API_TOKEN` and `WORKFLOW_ID_FULL_IDENTIFICATION` or `WORKFLOW_ID_DOCUMENT_IDENTIFICATION` collection variables. Then simply execute the three post requests in this order;
 
 1. Create Applicant
 2. Create SDK Token
