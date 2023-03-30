@@ -6,8 +6,8 @@
 
 ```bash
 npm install
-npm run build && npx cap sync
-cd ios && pod install && cd ../
+npm run build
+npx cap sync ios
 npx cap open ios
 ```
 
@@ -15,11 +15,12 @@ npx cap open ios
 
 ```bash
 npm install
-npm run build && npx cap sync
+npm run build
+npx cap sync android
 npx cap open android
 ```
 
-as you can see, two capacitor plugin's are installed of which one the `onfido-capacitor` plugin.
+as you can see, two capacitor plugins are installed of which one the `onfido-capacitor` plugin.
 
 ## Prerequisites
 
