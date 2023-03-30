@@ -6,10 +6,10 @@ A capacitor based wrapper for Onfido mobile SDKs
 
 <docgen-index>
 
-- [`start(...)`](#start)
-- [Interfaces](#interfaces)
-- [Type Aliases](#type-aliases)
-- [Enums](#enums)
+* [`start(...)`](#start)
+* [Interfaces](#interfaces)
+* [Type Aliases](#type-aliases)
+* [Enums](#enums)
 
 </docgen-index>
 
@@ -28,9 +28,11 @@ start(options: OnfidoConfig) => Promise<OnfidoResult | OnfidoError>
 
 **Returns:** <code>Promise&lt;<a href="#onfidoresult">OnfidoResult</a> | <a href="#onfidoerror">OnfidoError</a>&gt;</code>
 
----
+--------------------
+
 
 ### Interfaces
+
 
 #### OnfidoError
 
@@ -38,21 +40,27 @@ start(options: OnfidoConfig) => Promise<OnfidoResult | OnfidoError>
 | ---------- | ------------------- |
 | **`code`** | <code>string</code> |
 
+
 ### Type Aliases
+
 
 #### OnfidoResult
 
 <code>{ document?: { front: { id: string; }; back?: { id: string; }; nfcMediaId?: { id: string; }; }; face?: { id: string; variant: <a href="#onfidocapturetype">OnfidoCaptureType</a>; }; }</code>
 
+
 #### OnfidoConfig
 
 <code>{ sdkToken: string; workflowRunId?: string; flowSteps: <a href="#onfidoflowsteps">OnfidoFlowSteps</a>; hideLogo?: boolean; logoCoBrand?: boolean; enableNFC?: boolean; localisation?: { ios_strings_file_name?: string; }; }</code>
+
 
 #### OnfidoFlowSteps
 
 <code>{ welcome?: boolean; captureDocument?: { countryCode?: string; alpha2CountryCode?: string; docType?: <a href="#onfidodocumenttype">OnfidoDocumentType</a>; }; captureFace?: { type: <a href="#onfidocapturetype">OnfidoCaptureType</a>; }; }</code>
 
+
 ### Enums
+
 
 #### OnfidoCaptureType
 
@@ -61,6 +69,7 @@ start(options: OnfidoConfig) => Promise<OnfidoResult | OnfidoError>
 | **`PHOTO`**  | <code>'PHOTO'</code>  |
 | **`VIDEO`**  | <code>'VIDEO'</code>  |
 | **`MOTION`** | <code>'MOTION'</code> |
+
 
 #### OnfidoDocumentType
 

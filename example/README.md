@@ -2,11 +2,21 @@
 
 ## Install
 
+### iOS
+
 ```bash
 npm install
-npm run build
-npx cap sync
-npx cap open ios|android
+npm run build && npx cap sync
+cd ios && pod install && cd ../
+npx cap open ios
+```
+
+### Android
+
+```bash
+npm install
+npm run build && npx cap sync
+npx cap open android
 ```
 
 as you can see, two capacitor plugin's are installed of which one the `onfido-capacitor` plugin.
