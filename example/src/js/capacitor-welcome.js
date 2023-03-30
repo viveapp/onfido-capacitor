@@ -87,17 +87,6 @@ window.customElements.define(
         let onfidoConfig = {
           sdkToken: SDK_TOKEN,
           workflowRunId: WORKFLOW_RUN_ID,
-          flowSteps: {
-            welcome: true,
-            captureDocument: {
-              countryCode: 'NLD',
-              alpha2CountryCode: 'NL',
-              docType: 'DRIVING_LICENCE',
-            },
-            captureFace: {
-              type: 'VIDEO',
-            },
-          },
         };
         try {
           OnfidoCapacitor.start(onfidoConfig);

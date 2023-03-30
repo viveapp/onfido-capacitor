@@ -23,27 +23,11 @@ public class OnfidoPlugin: CAPPlugin {
                 return
             }
             
-            guard let sdkToken = call.options["sdkToken"] as? String else {
+            guard call.options["sdkToken"] is String else {
                 call.reject("sdkToken must be provided")
                 return
             }
-            
-            guard let flowSteps = call.options["flowSteps"] as? JSObject else {
-                call.reject("flowSteps must be provided")
-                return
-            }
-            
-            // TODO: check if correct way of retrieving sub value
-            guard let captureFace = flowSteps["captureFace"] as? JSObject else {
-                call.reject("captureFace must be provided")
-                return
-            }
-            
-            guard let faceVariant = captureFace["type"] as? String else {
-                call.reject("faceVariant must be provided")
-                return
-            }
-            
+    
             do {
                 let onfidoFlow: OnfidoFlow = try buildOnfidoFlow(from: call)
                 
@@ -54,7 +38,7 @@ public class OnfidoPlugin: CAPPlugin {
                             call.reject("\(error)", "Encountered an error running the flow", error)
                             return;
                         case let .success(results):
-                            call.resolve(createResponse(results, faceVariant: faceVariant))
+                            call.resolve(createResponse(results, faceVariant: nil))
                             return;
                         case let .cancel(reason):
                             switch (reason) {
