@@ -97,6 +97,7 @@ class OnfidoPlugin : Plugin() {
         sdkToken: String, workflowRunId: String, config: JSObject
     ) {
         val flow = OnfidoWorkflow.create(activity)
+        workflow = flow
         val onfidoConfigBuilder = WorkflowConfig.Builder(sdkToken, workflowRunId)
         val enterpriseFeaturesBuilder = getEnterpriseFeatures(config)
 
