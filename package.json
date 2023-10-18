@@ -1,6 +1,6 @@
 {
   "name": "onfido-capacitor",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "A capacitor based wrapper for Onfido mobile SDKs",
   "main": "dist/plugin.cjs.js",
   "module": "dist/esm/index.js",

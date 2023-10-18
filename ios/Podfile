@@ -5,7 +5,7 @@ def capacitor_pods
   use_frameworks!
   pod 'Capacitor', :path => '../node_modules/@capacitor/ios'
   pod 'CapacitorCordova', :path => '../node_modules/@capacitor/ios'
-  pod 'Onfido', '~> 28.1.0'
+  pod 'Onfido', '~> 29.5.1'
 end
 
 target 'Plugin' do
