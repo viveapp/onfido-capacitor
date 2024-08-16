@@ -23,10 +23,10 @@ ext {
 }
 
 android {
-    compileSdkVersion project.hasProperty('compileSdkVersion') ? rootProject.ext.compileSdkVersion : 32
+    compileSdkVersion project.hasProperty('compileSdkVersion') ? rootProject.ext.compileSdkVersion : 34
     defaultConfig {
         minSdkVersion project.hasProperty('minSdkVersion') ? rootProject.ext.minSdkVersion : 22
-        targetSdkVersion project.hasProperty('targetSdkVersion') ? rootProject.ext.targetSdkVersion : 32
+        targetSdkVersion project.hasProperty('targetSdkVersion') ? rootProject.ext.targetSdkVersion : 34
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -63,6 +63,6 @@ dependencies {
 
     implementation "androidx.core:core-ktx:$kotlinVersion"
 
-    implementation 'com.onfido.sdk.capture:onfido-capture-sdk:19.3.0'
-    implementation "com.onfido.sdk:onfido-workflow:19.3.0"
+    implementation 'com.onfido.sdk.capture:onfido-capture-sdk:19.4.1'
+    implementation "com.onfido.sdk:onfido-workflow:19.4.1"
 }
