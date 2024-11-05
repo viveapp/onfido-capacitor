@@ -2,7 +2,7 @@ package com.viveapp.onfido.capacitor
 
 import com.getcapacitor.JSObject
 
-class Response(
+public class Response(
     frontId: String?,
     backId: String?,
     nfcMediaId: String?,

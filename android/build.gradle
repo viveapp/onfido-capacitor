@@ -1,12 +1,12 @@
 buildscript {
-    ext.kotlinVersion = project.hasProperty('kotlinVersion') ? rootProject.ext.kotlinVersion : '1.6.0'
+    ext.kotlinVersion = project.hasProperty('kotlinVersion') ? rootProject.ext.kotlinVersion : '1.9.10'
 
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.2.2'
+        classpath 'com.android.tools.build:gradle:8.0.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.0"
     }
 }
@@ -23,7 +23,8 @@ ext {
 }
 
 android {
-    compileSdkVersion project.hasProperty('compileSdkVersion') ? rootProject.ext.compileSdkVersion : 34
+    namespace "com.viveapp.onfido.capacitor"
+    compileSdkVersion project.hasProperty('compileSdkVersion') ? rootProject.ext.compileSdkVersion : 35
     defaultConfig {
         minSdkVersion project.hasProperty('minSdkVersion') ? rootProject.ext.minSdkVersion : 22
         targetSdkVersion project.hasProperty('targetSdkVersion') ? rootProject.ext.targetSdkVersion : 34
@@ -41,8 +42,8 @@ android {
         abortOnError false
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 }
 
@@ -51,6 +52,8 @@ repositories {
     mavenCentral()
 }
 
+/// Using a variable for both packages, because they **seem** to be similar throughout releases
+var onfidoVersion = '22.0.0'
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -63,6 +66,14 @@ dependencies {
 
     implementation "androidx.core:core-ktx:$kotlinVersion"
 
-    implementation 'com.onfido.sdk.capture:onfido-capture-sdk:19.4.1'
-    implementation "com.onfido.sdk:onfido-workflow:19.4.1"
+    implementation ("com.onfido.sdk.capture:onfido-capture-sdk:$onfidoVersion") {
+        exclude group: 'org.jmrtd', module: 'jmrtd'
+        exclude group: 'org.bouncycastle', module: 'bcprov-jdk18on'
+    }
+    implementation ("com.onfido.sdk:onfido-workflow:$onfidoVersion") {
+        exclude group: 'org.jmrtd', module: 'jmrtd'
+    }
+
+    implementation "org.bouncycastle:bcutil-jdk15to18:1.78"
+    implementation "org.bouncycastle:bcprov-jdk15to18:1.78"
 }

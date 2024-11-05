@@ -57,9 +57,13 @@ public class OnfidoPlugin: CAPPlugin {
                     })
                 
                 
-                let onfidoRun = try onfidoFlow.run()
-                onfidoRun.modalPresentationStyle = .fullScreen
-                UIApplication.shared.windows.first?.rootViewController?.findTopMostController().present(onfidoRun, animated: true)
+                // Ensure we have a valid UIViewController
+                guard let viewController = self.bridge?.viewController else {
+                    call.reject("Unable to access the view controller.")
+                    return
+                }
+
+                try onfidoFlow.run(from: viewController, presentationStyle: .fullScreen, animated: true, completion: nil)
             } catch let error as NSError {
                 call.reject("\(error)", error.domain, error)
                 return;
@@ -93,11 +97,11 @@ public func buildOnfidoFlow(from config: CAPPluginCall) throws -> OnfidoFlow {
         }
         
         let workflowConfig = WorkflowConfiguration(workflowRunId: workflowRunId, sdkToken: sdkToken)
-        workflowConfig.enterpriseFeatures = enterpriseFeatures.build()
-        workflowConfig.appearance = appearance
+        workflowConfig.withEnterpriseFeatures(enterpriseFeatures.build())
+        workflowConfig.withAppearance(appearance)
         
         if let localisationFile = getLocalisationConfigFileName(from: config) {
-            workflowConfig.localisation = (bundle: Bundle.main, tableName: localisationFile)
+            workflowConfig.withCustomLocalization(withTableName: localisationFile, in: Bundle.main)
         }
         
         return OnfidoFlow(workflowConfiguration: workflowConfig)
@@ -166,7 +170,7 @@ public func buildOnfidoConfig(config: CAPPluginCall, appearance: Appearance) thr
     }
     
     if config.options["enableNFC"] as? Bool == true {
-        onfidoConfig = onfidoConfig.withNFCReadFeatureEnabled()
+        onfidoConfig = onfidoConfig.withNFC(NFCConfiguration.optional)
     }
     
     if let hideLogo = config.options["hideLogo"] as? Bool {
@@ -235,7 +239,6 @@ public func loadAppearanceFromFile(filePath: String?) throws -> Appearance {
         appearance.primaryColor = appearancePublic.primaryColor
         appearance.primaryTitleColor = appearancePublic.primaryTitleColor
         appearance.primaryBackgroundPressedColor = appearancePublic.primaryBackgroundPressedColor
-        appearance.supportDarkMode =  appearancePublic.supportDarkMode
         return appearance
     } else {
         return Appearance.default;

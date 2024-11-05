@@ -10,13 +10,16 @@ import com.onfido.android.sdk.capture.*
 import com.onfido.android.sdk.capture.errors.EnterpriseFeatureNotEnabledException
 import com.onfido.android.sdk.capture.errors.EnterpriseFeaturesInvalidLogoCobrandingException
 import com.onfido.android.sdk.capture.errors.OnfidoException
+import com.onfido.android.sdk.capture.model.NFCOptions
 import com.onfido.android.sdk.capture.ui.camera.face.stepbuilder.FaceCaptureStepBuilder
-import com.onfido.android.sdk.capture.ui.options.CaptureScreenStep
 import com.onfido.android.sdk.capture.ui.options.FlowStep
+import com.onfido.android.sdk.capture.ui.options.stepbuilder.DocumentCaptureStepBuilder
 import com.onfido.android.sdk.capture.upload.Captures
 import com.onfido.android.sdk.capture.utils.CountryCode
 import com.onfido.workflow.OnfidoWorkflow
 import com.onfido.workflow.WorkflowConfig
+
+
 
 @CapacitorPlugin(
     name = "OnfidoPlugin",
@@ -87,7 +90,7 @@ class OnfidoPlugin : Plugin() {
         }
 
         if (config.getBoolean("enableNFC")) {
-            onfidoConfigBuilder.withNFCReadFeature()
+            onfidoConfigBuilder.withNFC(NFCOptions.Enabled.Optional)
         }
 
         client.startActivityForResult(activity, CHECKS_ACTIVITY_CODE, onfidoConfigBuilder.build())
@@ -266,7 +269,11 @@ class OnfidoPlugin : Plugin() {
                             throw Exception("Unexpected countryCode value.")
                         }
 
-                        flowStepList.add(CaptureScreenStep(docTypeEnum, countryCodeEnum))
+                        val nationalIdentity = DocumentCaptureStepBuilder.forNationalIdentity()
+                            .withCountry(countryCodeEnum)
+                            .build();
+
+                        flowStepList.add(nationalIdentity)
                     } else if (!docTypeExists && !countryCodeExists) {
                         flowStepList.add(FlowStep.CAPTURE_DOCUMENT)
                     } else {
