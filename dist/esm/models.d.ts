@@ -1,7 +1,7 @@
 export declare type OnfidoConfig = {
     sdkToken: string;
     workflowRunId?: string;
-    flowSteps: OnfidoFlowSteps;
+    flowSteps?: OnfidoFlowSteps;
     hideLogo?: boolean;
     logoCoBrand?: boolean;
     enableNFC?: boolean;

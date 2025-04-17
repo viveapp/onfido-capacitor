@@ -51,7 +51,7 @@ start(options: OnfidoConfig) => Promise<OnfidoResult | OnfidoError>
 
 #### OnfidoConfig
 
-<code>{ sdkToken: string; workflowRunId?: string; flowSteps: <a href="#onfidoflowsteps">OnfidoFlowSteps</a>; hideLogo?: boolean; logoCoBrand?: boolean; enableNFC?: boolean; localisation?: { ios_strings_file_name?: string; }; }</code>
+<code>{ sdkToken: string; workflowRunId?: string; flowSteps?: <a href="#onfidoflowsteps">OnfidoFlowSteps</a>; hideLogo?: boolean; logoCoBrand?: boolean; enableNFC?: boolean; localisation?: { ios_strings_file_name?: string; }; }</code>
 
 
 #### OnfidoFlowSteps

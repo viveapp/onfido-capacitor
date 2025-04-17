@@ -140,7 +140,7 @@
       "docs": "",
       "types": [
         {
-          "text": "{\n  sdkToken: string;\n  workflowRunId?: string;\n  flowSteps: OnfidoFlowSteps;\n  hideLogo?: boolean;\n  logoCoBrand?: boolean;\n  enableNFC?: boolean;\n  localisation?: {\n    ios_strings_file_name?: string;\n  };\n}",
+          "text": "{\n  sdkToken: string;\n  workflowRunId?: string;\n  flowSteps?: OnfidoFlowSteps;\n  hideLogo?: boolean;\n  logoCoBrand?: boolean;\n  enableNFC?: boolean;\n  localisation?: {\n    ios_strings_file_name?: string;\n  };\n}",
           "complexTypes": [
             "OnfidoFlowSteps"
           ]
