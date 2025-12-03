@@ -1,13 +1,13 @@
 PODS:
-  - Capacitor (5.0.4):
+  - Capacitor (7.4.2):
     - CapacitorCordova
-  - CapacitorCordova (5.0.4)
-  - Onfido (32.4.2)
+  - CapacitorCordova (7.4.2)
+  - Onfido (32.6.3)
 
 DEPENDENCIES:
   - "Capacitor (from `../node_modules/@capacitor/ios`)"
   - "CapacitorCordova (from `../node_modules/@capacitor/ios`)"
-  - Onfido (~> 32.4.2)
+  - Onfido (~> 32.6.3)
 
 SPEC REPOS:
   trunk:
@@ -20,10 +20,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@capacitor/ios"
 
 SPEC CHECKSUMS:
-  Capacitor: d3d4463573438b9fa65326d1f3549da6f4c21634
-  CapacitorCordova: b1fe6bf1f36974a8e4a9044b342d22d49c0996d6
-  Onfido: 008b801587ee7d129d88627b0546a2cf0e99288d
+  Capacitor: 156d98aba46ec01dde72c4bbb92fa626837cad29
+  CapacitorCordova: 5e58d04631bc5094894ac106e2bf1da18a9e6151
+  Onfido: c2325ed2ce1f8eb46cde63e1ade0c1c54374ef7f
 
-PODFILE CHECKSUM: eb3aa788c16327d095924965d6d4bdd16ac226c8
+PODFILE CHECKSUM: d25310da84ae2790670c6c7165766a509862f413
 
 COCOAPODS: 1.15.2
